@@ -294,23 +294,3 @@ The core infrastructure (database, OCR, LLM, scoring) works with any apartment l
 5. **Scoring**: Apply multi-factor scoring algorithm
 6. **Storage**: Save enriched data to PostgreSQL
 7. **Display**: Present results through web interface
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Submit a pull request
-
-## 📄 License
-
-This project is for educational and personal use. Please respect StreetEasy's terms of service and robots.txt when scraping.
-
-## ⚠️ Disclaimer
-
-This tool is designed for personal apartment hunting in NYC. Users are responsible for complying with all applicable terms of service and local laws. The authors are not responsible for any misuse of this software.
-
----
-
-**Happy apartment hunting! 🏠✨**
