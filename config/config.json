@@ -1,0 +1,190 @@
+{
+  "scraper": {
+    "start_url": "https://streeteasy.com/for-rent/nyc",
+    "filters": {
+      "price": [
+        2000,
+        4500
+      ],
+      "areas": [
+        101,
+        102,
+        119,
+        135,
+        139,
+        301,
+        302,
+        303,
+        304,
+        305,
+        306,
+        307,
+        310,
+        313,
+        318,
+        319,
+        320,
+        321,
+        322,
+        324,
+        325,
+        326,
+        328,
+        329,
+        364,
+        367,
+        401,
+        402,
+        403,
+        404,
+        410,
+        412
+      ],
+      "beds_max": 1,
+      "baths_min": 1,
+      "amenities": [
+        "washer_dryer",
+        "dishwasher",
+        "elevator"
+      ]
+    },
+    "max_pages": null,
+    "max_links": null,
+    "concurrency": 20
+  },
+  "commute": {
+    "enabled": true,
+    "address": "33 Whitehall St, New York, NY 10004",
+    "coordinates": [
+      40.7055,
+      -74.0122
+    ],
+    "departure": "08:30",
+    "heuristic": true,
+    "google": {
+      "enabled": false,
+      "api_key": null,
+      "max_calls": 200,
+      "batch_size": 50
+    }
+  },
+  "llm": {
+    "enabled": true,
+    "model": "qwen3:14b",
+    "extract_missing": true,
+    "max_concurrent": 4,
+    "batch_size": 8,
+    "timeout": 60,
+    "context": 2048,
+    "num_batch": 512,
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "flash_attention": true,
+    "auto_unload": true,
+    "f16_kv": true,
+    "keep_alive": "10m",
+    "think": false,
+    "response_format": "json"
+  },
+  "ocr": {
+    "paddleocr": {
+      "enabled": true,
+      "use_gpu": false,
+      "lang": "en",
+      "use_angle_cls": true,
+      "det_db_thresh": 0.25,
+      "det_db_box_thresh": 0.50,
+      "det_db_unclip_ratio": 2.2,
+      "rec_batch_num": 12,
+      "cls_batch_num": 12,
+      "det_limit_side_len": 1536,
+      "det_limit_type": "max",
+      "show_log": false,
+      "preprocess_enabled": true,
+      "preprocess_min_side": 1800,
+      "preprocess_max_scale": 2.4,
+      "preprocess_contrast": 1.35,
+      "preprocess_sharpen_percent": 120,
+      "preprocess_sharpen_radius": 1.0,
+      "preprocess_sharpen_threshold": 4,
+      "preprocess_autocontrast_cutoff": 1
+    },
+    "tesseract": {
+      "enabled": true,
+      "oem": 1,
+      "psm": 11,
+      "min_word_conf": 50,
+      "whitelist": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'\"xX×- ./%²",
+      "binary_path": null,
+      "extra_args": ""
+    },
+    "hybrid": {
+      "enabled": true,
+      "explicit_sqft_min": 64,
+      "explicit_sqft_max": 800,
+      "dimension_total_min": 15,
+      "dimension_total_max": 800,
+      "dimension_engine_preference": "auto",
+      "shared_session_enabled": true,
+      "tesseract_skip_paddle_conf": 0.95,
+      "sqft_confidence_threshold": 0.40,
+      "dimension_confidence_threshold": 0.60,
+      "confidence_penalties": {
+        "sqft_thresholds": {
+          "very_small": 100,
+          "small": 150,
+          "medium": 200,
+          "large": 700,
+          "very_large": 800,
+          "extreme": 1000
+        },
+        "sqft_penalties": {
+          "very_small": 0.60,
+          "small": 0.50,
+          "medium": 0.35,
+          "large": 0.20,
+          "very_large": 0.35,
+          "extreme": 0.50
+        },
+        "additional_penalties": {
+          "single_dimension": 0.20,
+          "small_sqft": 0.15,
+          "poor_pattern_quality": 0.25
+        }
+      }
+    }
+  },
+  "scoring": {
+    "enabled": true,
+    "weights": { "commute": 0.40, "price": 0.35, "sqft": 0.25 },
+    "price": {
+      "hard_zero_at": 5000
+    },
+    "commute": {
+      "ideal_min": 20,
+      "max_tolerable": 35
+    },
+    "sqft": {
+      "ocr_confidence_min": 0.50,
+      "ocr_confidence_full": 0.90,
+      "ocr_partial_weight": 0.50,
+      "fallback_min": 300,
+      "fallback_max": 400
+    },
+    "nudges": {
+      "availability_now": 3,
+      "no_fee": 3,
+      "broker_fee_flat_penalty": 8,
+      "broker_fee_pct_penalty_per_10pct": 3,
+      "application_fee": 2,
+      "rent_stabilized": 3,
+      "amenities": { "in_unit_laundry": 3, "dishwasher": 1, "elevator": 1, "gym": 1, "outdoor_any": 1, "max_total": 10 },
+      "days_on_market_penalty": [
+        {"min": 45, "penalty": 2},
+        {"min": 75, "penalty": 4},
+        {"min": 120, "penalty": 6}
+      ]
+    },
+    "missing_values": { "redistribute_weights": true, "default_factor_score": 50 }
+  }
+}

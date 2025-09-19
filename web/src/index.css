@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* utility: hide scrollbars while preserving scroll */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Carousel specific styles */
+.carousel-container {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  touch-action: pan-x;
+}
+
+.carousel-item {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Modern scrollbar styling */
+*::-webkit-scrollbar { 
+  width: 8px; 
+  height: 8px; 
+}
+*::-webkit-scrollbar-track { 
+  background: #f1f5f9; 
+  border-radius: 8px; 
+}
+.dark *::-webkit-scrollbar-track { 
+  background: #1e293b; 
+}
+*::-webkit-scrollbar-thumb { 
+  background: linear-gradient(135deg, #3b82f6, #6366f1); 
+  border-radius: 8px; 
+  border: 1px solid #f1f5f9;
+}
+.dark *::-webkit-scrollbar-thumb { 
+  background: linear-gradient(135deg, #60a5fa, #818cf8); 
+  border: 1px solid #1e293b;
+}
+*::-webkit-scrollbar-thumb:hover { 
+  background: linear-gradient(135deg, #2563eb, #4f46e5); 
+}
+.dark *::-webkit-scrollbar-thumb:hover { 
+  background: linear-gradient(135deg, #3b82f6, #6366f1); 
+}
+
+/* Smooth transitions for all elements */
+* {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Custom focus styles */
+*:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Glass morphism effect for cards */
+.glass {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Mobile touch improvements */
+@media (max-width: 768px) {
+  .carousel-container {
+    scroll-snap-type: x proximity;
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Prevent text selection during touch */
+  .carousel-container * {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Improve touch responsiveness */
+  .carousel-container {
+    overscroll-behavior-x: contain;
+    overscroll-behavior-y: auto;
+  }
+}

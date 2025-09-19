@@ -1,0 +1,27 @@
+# Common Problematic OCR Patterns
+# These patterns often cause extraction issues and need debugging
+
+# Missing spaces between dimensions
+15'-6°×147
+15'-6"14'-7"
+
+# OCR artifacts with degree symbols
+15-6°×147
+20-8°×12-4°
+
+# Missing apostrophes
+15-6"×14-7"
+20-8"×12-4"
+
+# Mixed formats
+15'-6"×14'-7"
+20'-8"×12'-4"
+
+# Simple dimensions
+15×20
+20×12
+
+# Explicit SQFT mentions
+500 SQFT
+750 square feet
+1200 SF
